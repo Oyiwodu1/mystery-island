@@ -1,4 +1,5 @@
-from game import new_game, move_player, search_location, restore_beacon
+import random
+from game import new_game, move_player, search_location, restore_beacon, cave_guardian, locations
 
 def show_instructions():
     print("===== WELCOME TO MYSTERY ISLAND =====\n")
@@ -57,14 +58,25 @@ def main():
         print(f"Nice to meet you {name}, kindly choose an option from the menu.")
 
         while player["game_over"] is False:
-            print(f"\nYour current location is: {player['location']}")
             show_map()
+            print(f"\nYour current location is: {player['location']}")
             print(f"Remaining energy: {player['energy']}")
             choice = show_menu()
 
             if choice == "1":
-                destination = input("where is your next stop? ").strip().title()
-                move_player(player, destination)
+                destination = input("Where is your next stop? ").strip().title()
+
+                if destination in locations[player["location"]]:
+
+                    if destination == "Cave" and not player["cave_unlocked"]:
+                        cave_guardian(player)
+
+                    if player["energy"] > 0:
+                        if destination != "Cave" or player["cave_unlocked"]:
+                            move_player(player, destination)
+                else:
+                    print("INVALID DESTINATION!")
+                    print("You must go through the route on your map")
 
             elif choice == "2":
                 search_location(player)
