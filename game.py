@@ -27,18 +27,22 @@ def move_player(player, destination):   #handles movement.
             if "rope" in player["inventory"]:
                 player["location"] =  destination
                 player["energy"] -= 1
-                random_encounter(player)
+                if player["energy"] == 0:
+                    player["game_over"] = True
+                else:
+                    random_encounter(player)
             else:
                 print("You need a Rope to cross the old bridge")
         else:
             player["location"] = destination
             player["energy"] -= 1
-            random_encounter(player)
+            if player["energy"] == 0:
+                player["game_over"] = True
+            else:
+                random_encounter(player)
     else:
         print("INVALID DESTINATION!")
 
-    if player["energy"] == 0:
-       player["game_over"] = True
 
 def search_location(player):     #handles collecting objects.
     

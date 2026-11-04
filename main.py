@@ -1,4 +1,3 @@
-import random
 from game import new_game, move_player, search_location, restore_beacon, cave_guardian, locations
 
 def show_instructions():
@@ -15,6 +14,10 @@ def show_instructions():
         - You need the rope to cross the Old Bridge.
         - You need the lantern to restore the lighthouse beacon.
         - You can revisit previous locations.
+        - A Cave Guardian will challenge you with a riddle before you can enter the Cave.
+        - Hidden treasure in the Cave gives you 2 extra energy points.
+        - Random encounters may happen while travelling. Some can cost or restore energy.
+        - Your energy cannot exceed 7 points.
         - If your energy reaches zero before you win, you lose.\n""")
 
 def show_map():
@@ -27,7 +30,7 @@ def show_map():
           [JUNGLE]  - Find Rope
              |
              |
-           [CAVE]   - Find Lantern
+           [CAVE]   - Guardian, Lantern & Treasure
              |
              |
        [OLD BRIDGE] - Rope required
@@ -118,7 +121,7 @@ def main():
         if play_again == "yes":
             continue
         else:
-            print("Goodbye!")
+            print(f"Goodbye!{player['name']}")
             break
 if __name__ == "__main__":
     main() 
